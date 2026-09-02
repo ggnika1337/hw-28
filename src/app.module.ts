@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { FilmsModule } from './films/films.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DirectorsModule } from './directors/directors.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: Boolean(process.env.SQL_SYNC),
     }),
     FilmsModule,
+    DirectorsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
