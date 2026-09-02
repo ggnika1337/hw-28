@@ -1,5 +1,4 @@
-import { IsDate, IsNotEmpty, IsString } from 'class-validator';
-import { Transform } from 'class-transformer';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateFilmDto {
   @IsNotEmpty()
@@ -11,8 +10,8 @@ export class CreateFilmDto {
   genre: string;
 
   @IsNotEmpty()
-  @IsDate()
-  year: Date;
+  @IsNumber()
+  year: number;
 
   @IsNotEmpty()
   @IsString()

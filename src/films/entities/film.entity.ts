@@ -12,8 +12,9 @@ export class Film {
   genre: string;
 
   @Column()
-  year: Date;
+  year: number;
 
   // @OneToMany()
+  @Column()
   director: string;
 }
