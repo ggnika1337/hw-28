@@ -4,15 +4,31 @@ import { UpdateFilmDto } from './dto/update-film.dto';
 import { Film } from './entities/film.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Director } from 'src/directors/entities/director.entity';
 
 @Injectable()
 export class FilmsService {
-  constructor(@InjectRepository(Film) private filmRepo: Repository<Film>) {}
+  constructor(
+    @InjectRepository(Film)
+    private filmRepo: Repository<Film>,
+
+    @InjectRepository(Director)
+    private directorRepo: Repository<Director>,
+  ) {}
 
   async create(createFilmDto: CreateFilmDto) {
     const existFilm = await this.filmRepo.findOneBy({
       name: createFilmDto.name,
     });
+
+    const existsDirector = await this.directorRepo.findOneBy({
+      id: createFilmDto.director,
+    });
+
+    if (!existsDirector) {
+      throw new BadRequestException('Director not found.');
+    }
+
     if (existFilm) {
       throw new BadRequestException('Film exists.');
     }
